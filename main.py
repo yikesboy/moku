@@ -1,5 +1,6 @@
 import click
 import time
+from init import init
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -27,10 +28,7 @@ def cli(ctx):
         click.secho("--create new post\n", fg="bright_black")
         click.secho("        Inspired by mokuhanga (木版画), the traditional Japanese art of woodblock printing.\n\n", fg="bright_blue")
 
-@cli.command()
-def init():
-    """Scaffold new project in current directory"""
-    pass
+cli.add_command(init)
 
 @cli.command()
 @click.option("--port", default=8000, help="Port to serve the site")

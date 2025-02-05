@@ -1,0 +1,16 @@
+{
+  "scaffold_structure": {
+    "content" : {
+      "files" : ["index.md"],
+      "posts": {
+        "files": ["1.md"]
+      }
+    },
+    "static" : {
+      "files": ["styles.css"]
+    },
+    "templates": {
+      "files": ["index.html", "post.html"]
+    }
+  }
+}
