@@ -2,7 +2,7 @@ import click
 import os
 import json
 from typing import Dict, Optional
-from util import get_config_file_name, write_error_msg
+from util import FilePath, write_error_msg, write_warning_msg
 
 
 @click.command()
@@ -13,7 +13,7 @@ def init(name: str):
 def create_scaffold(project_dir: str):
     script_path: str = os.path.join(os.path.dirname(os.path.abspath(__file__)))
     call_path: str = os.path.join(os.getcwd(), project_dir)
-    moku_config_path: str = os.path.join(script_path, get_config_file_name())
+    moku_config_path: str = os.path.join(script_path, FilePath.CONFIG_FILE.value)
 
     structure = load_and_parse_config(config_path=moku_config_path)
     if structure is not None:
@@ -43,8 +43,24 @@ def process_structure(scaffold_structure: Dict, current_path: str):
             process_structure(value, new_path)
 
 def create_file(path: str, file_name: str):
-    with open(os.path.join(path, file_name), "w") as new_file:
-        new_file.write("")
+    file_path = os.path.join(path, file_name)
+    template_path = os.path.join(FilePath.TEMPLATE_DIR.project_path, file_name)
+
+    try: 
+        if os.path.exists(template_path):
+            with open(template_path, "r") as template_file:
+                content = template_file.read()
+        else:
+            content = ""
+            write_warning_msg(f"template for {file_name} is missing in {template_path}")
+
+        with open(file_path, "w") as new_file:
+            new_file.write(content)
+    except IOError:
+        write_error_msg(f"failed to create file {file_name}")
 
 def create_dir(path: str):
-    os.makedirs(path, exist_ok=True)
+    try:
+        os.makedirs(path, exist_ok=True)
+    except OSError:
+        write_error_msg(f"failed to create directory {path}")
