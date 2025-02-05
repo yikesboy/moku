@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header>
+      <h1>Moku</h1> 
+    </header>
+    <main>
+      <section class="description">{{ description }}</section>
+      <section class="post-list">
+        {% if posts %}
+        <ul>
+          {% for post in posts %}
+          <li class="post">
+            <a href="{{ post.slug }}.html">{{ post.date }} - {{ post.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>No posts yet</p>
+        {% endif %}
+      </section>
+    </main>
+    <footer>
+      <p>powered by <a href="https://github.com/yikesboy/moku">moku</a></p>
+    </footer>
+  </body>
+</html>
