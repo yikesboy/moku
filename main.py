@@ -17,12 +17,27 @@ def cli(ctx):
 
         Commands:
         """, fg="bright_blue")
-        click.secho("         ⬡ build        ", fg="bright_magenta", nl=False)
-        click.secho("--generate the static page", fg="bright_black")
+        click.secho("         ⬡ init         ", fg="bright_magenta", nl=False)
+        click.secho("--scaffold new project in the current directory", fg="bright_black")
         click.secho("         ⬡ serve        ", fg="bright_magenta", nl=False)
         click.secho("--start preview server", fg="bright_black")
+        click.secho("         ⬡ build        ", fg="bright_magenta", nl=False)
+        click.secho("--generate the static page", fg="bright_black")
         click.secho("         ⬡ new-post     ", fg="bright_magenta", nl=False)
-        click.secho("--create new post\n\n", fg="bright_black")
+        click.secho("--create new post\n", fg="bright_black")
+        click.secho("        Inspired by mokuhanga (木版画), the traditional Japanese art of woodblock printing.\n\n", fg="bright_blue")
+
+@cli.command()
+def init():
+    """Scaffold new project in current directory"""
+    pass
+
+@cli.command()
+@click.option("--port", default=8000, help="Port to serve the site")
+def serve(port):
+    """Start preview server"""
+    click.secho(f"Serving on http://localhost:{port}", fg="bright_blue")
+    pass
 
 @cli.command()
 def build():
@@ -34,11 +49,6 @@ def build():
             time.sleep(0.03)
 
     click.secho("\nBuild Complete!", fg='bright_blue', bold=True)
-    pass
-
-@cli.command()
-def serve():
-    """Start preview server"""
     pass
 
 @cli.command()
