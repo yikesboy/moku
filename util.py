@@ -4,9 +4,11 @@ from enum import Enum
 
 class FilePath(Enum):
     CONFIG_FILE = "moku_config.json"
-    CONTENT_DIR = "content"
     TEMPLATE_DIR = "templates"
+    CONTENT_DIR = "content"
+    POSTS_DIR = str(os.path.join(CONTENT_DIR, "posts"))
     OUTPUT_DIR = "output"
+    OUTPUT_POSTS = str(os.path.join(OUTPUT_DIR, "posts"))
 
     @property
     def cwd_path(self) -> str:

@@ -17,7 +17,7 @@
         <ul>
           {% for post in posts %}
           <li class="post">
-            <a href="{{ post.slug }}.html">{{ post.date }} - {{ post.title }}</a>
+            <a href="posts/{{ post.slug }}/index.html">{{ post.date }} - {{ post.title }}</a>
           </li>
           {% endfor %}
         </ul>

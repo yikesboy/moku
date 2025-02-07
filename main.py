@@ -1,6 +1,7 @@
 import click
 import time
 from init import init
+from build import build
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -29,6 +30,7 @@ def cli(ctx):
         click.secho("        Inspired by mokuhanga (木版画), the traditional Japanese art of woodblock printing.\n\n", fg="bright_blue")
 
 cli.add_command(init)
+cli.add_command(build)
 
 @cli.command()
 @click.option("--port", default=8000, help="Port to serve the site")
@@ -37,9 +39,8 @@ def serve(port):
     click.secho(f"Serving on http://localhost:{port}", fg="bright_blue")
     pass
 
-@cli.command()
+"""@cli.command()
 def build():
-    """Generate the static page"""
     click.secho("\nStarting build.\n", fg='bright_blue', bold=True)
     total = 100
     with click.progressbar(range(total), label=click.style('Building', fg='bright_blue', bold=True), fill_char='█', empty_char='-', width=50) as bar:
@@ -47,7 +48,7 @@ def build():
             time.sleep(0.03)
 
     click.secho("\nBuild Complete!", fg='bright_blue', bold=True)
-    pass
+    pass"""
 
 @cli.command()
 def new_post():
