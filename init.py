@@ -9,6 +9,18 @@ from util import FilePath, write_error_msg, write_warning_msg
 @click.option("--name", prompt="project name", default="mywebpage",show_default=True)
 def init(name: str):
     create_scaffold(project_dir=name) 
+    create_moku_project_file(project_dir=name)
+
+def create_moku_project_file(project_dir: str):
+    full_path = os.path.join(os.getcwd(), project_dir)
+    file_path = os.path.join(full_path, ".moku")
+
+    try: 
+        with open(file_path, "w") as moku_file:
+            moku_file.write("")
+    except IOError:
+        write_error_msg("failed to create project")
+        return
 
 def create_scaffold(project_dir: str):
     script_path: str = os.path.join(os.path.dirname(os.path.abspath(__file__)))
