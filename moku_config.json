@@ -1,7 +1,7 @@
 {
   "scaffold_structure": {
     "content" : {
-      "files" : ["index.md"],
+      "files" : ["index.md", "about.md"],
       "posts": {
         "files": ["post-01.md", "post-02.md", "post-03.md"]
       }
@@ -10,7 +10,7 @@
       "files": ["styles.css"]
     },
     "templates": {
-      "files": ["index.html", "post.html"]
+      "files": ["index.html", "post.html", "page.html"]
     }
   }
 }

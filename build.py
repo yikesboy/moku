@@ -4,7 +4,7 @@ import yaml
 import markdown
 from typing import Optional, Tuple, Any, List
 from jinja2 import Environment, FileSystemLoader
-from models import Post, Page
+from models import Post, Page, TemplateType
 from util import FilePath, write_error_msg, write_warning_msg
 
 @click.command()
@@ -28,17 +28,27 @@ def build_output_from_user_project():
     build_pages(env=env, pages=pages, posts=posts)
     build_post_pages(env=env, posts=posts)
 
-# TODO: implement multiple root pages
 def build_pages(env: Environment, pages: List[Page], posts: List[Post]):
-    index_template = env.get_template("index.html")
-
     for page in pages:
-        rendered_index = index_template.render(
+        page_template = env.get_template(page.template.value)
+        print(page.description)
+        print(page.template.value)
+        if page.slug == "index":
+            path = FilePath.OUTPUT_DIR.cwd_path
+            rendered_index = page_template.render(
                 title=page.title,
                 description=page.description,
                 posts=posts
-        )
-        with open(os.path.join(FilePath.OUTPUT_DIR.cwd_path, "index.html"), "w", encoding="utf-8") as f:
+            )
+        else:
+            path = os.path.join(FilePath.OUTPUT_DIR.cwd_path, page.slug)
+            os.makedirs(path)
+            rendered_index = page_template.render(
+                title=page.title,
+                description=page.description,
+            )
+        
+        with open(os.path.join(path, "index.html"), "w", encoding="utf-8") as f:
             f.write(rendered_index)
         
 def build_post_pages(env: Environment, posts: List[Post]):
@@ -90,6 +100,7 @@ def get_pages() -> List[Page]:
                 page = Page(
                         title=metadata.get("title", "Untitled"),
                         date=metadata.get("date", "Unknown Date"),
+                        template=TemplateType.from_string(metadata.get("template", "page.html")),
                         description = html_content,
                         slug=slug
                         )

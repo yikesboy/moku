@@ -4,9 +4,14 @@ from enum import Enum
 class TemplateType(Enum):
     POST = "post.html"
     INDEX = "index.html"
+    PAGE = "page.html"
+
+    @staticmethod
+    def from_string(value: str) -> "TemplateType":
+        return next((t for t in TemplateType if t.value == value), TemplateType.PAGE)
 
 @dataclass
-class Post():
+class Post:
     title: str
     date: str
     html_content: str
@@ -14,9 +19,9 @@ class Post():
     template: TemplateType = TemplateType.POST
 
 @dataclass
-class Page():
+class Page:
     title: str
     date: str
     description: str
     slug: str
-    template: TemplateType = TemplateType.INDEX
+    template: TemplateType
