@@ -31,8 +31,6 @@ def build_output_from_user_project():
 def build_pages(env: Environment, pages: List[Page], posts: List[Post]):
     for page in pages:
         page_template = env.get_template(page.template.value)
-        print(page.description)
-        print(page.template.value)
         if page.slug == "index":
             path = FilePath.OUTPUT_DIR.cwd_path
             rendered_index = page_template.render(
