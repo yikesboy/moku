@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono:wght@400;600&display=swap');
+
+body {
+  background-color: #fbf7f5;
+  color: #3484fd;
+  font-family: "Share Tech Mono", serif;
+  font-weight: 400;
+  font-style: normal;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  flex: 1;
+  max-width: 50%;
+  width: 100%;
+}
+
+header {
+  width: 100%;
+  max-width: 50%;
+  margin: 0 auto;
+  text-align: left;
+  margin-top: 10%
+}
+
+h1 {
+  margin: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  max-width: 50%;
+  margin-top: auto;
+}
+
+footer a {
+  font-weight: bold;
+}
+
+a {
+  color: #0165fc;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+code {
+    background-color: #7fd0f5;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+pre {
+  background: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+pre code {
+    display: block;
+    line-height: 1.5;
+    padding: 15px;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: #3484fd;
+}
+
+@media (min-width: 1200px) {
+  header, main, footer {
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 700px) {
+  header, main, footer {
+    max-width: 90%;
+  }
+}
