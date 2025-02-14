@@ -1,11 +1,12 @@
 import click
 import os
 import yaml
+import shutil
 import markdown
 from typing import Optional, Tuple, Any, List
 from jinja2 import Environment, FileSystemLoader
 from models import Post, Page, TemplateType
-from util import FilePath, write_error_msg, write_warning_msg
+from util import FilePath, write_error_msg, write_warning_msg, is_moku_project_dir
 
 @click.command()
 def build():
@@ -14,9 +15,6 @@ def build():
     else:
         write_error_msg("not in a valid project directory")
 
-def is_moku_project_dir() -> bool:
-    return os.path.isfile(os.path.join(os.getcwd(), ".moku"))
-    
 def build_output_from_user_project():
     env = Environment(loader=FileSystemLoader(FilePath.TEMPLATE_DIR.project_path))
     posts: List[Post] = get_posts()
@@ -27,6 +25,7 @@ def build_output_from_user_project():
 
     build_pages(env=env, pages=pages, posts=posts)
     build_post_pages(env=env, posts=posts)
+    copy_styles()
 
 def build_pages(env: Environment, pages: List[Page], posts: List[Post]):
     for page in pages:
@@ -128,6 +127,24 @@ def parse_markdown(path: str, file_name: str) -> Optional[Tuple[Any, str]]:
         write_warning_msg("metadata missing in {file_name}")
         return
 
-    html_content = markdown.markdown(md_content)
+    html_content = markdown.markdown(
+            md_content,
+            extensions=[
+                'fenced_code',
+                'codehilite',
+                'tables'
+                ]
+            )
 
     return metadata, html_content
+
+def copy_styles():
+    source = os.path.join(FilePath.STATIC_DIR.cwd_path, "styles.css")
+    destination = os.path.join(FilePath.OUTPUT_DIR.cwd_path, "styles.css")
+
+    try: 
+        shutil.copy(source,destination)
+    except FileNotFoundError:
+        write_error_msg("styles.css not found in static directory")
+    except Exception:
+        write_error_msg("unknown while trying to copy styles.css ")

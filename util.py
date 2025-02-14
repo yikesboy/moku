@@ -9,6 +9,7 @@ class FilePath(Enum):
     POSTS_DIR = str(os.path.join(CONTENT_DIR, "posts"))
     OUTPUT_DIR = "output"
     OUTPUT_POSTS = str(os.path.join(OUTPUT_DIR, "posts"))
+    STATIC_DIR = "static"
 
     @property
     def cwd_path(self) -> str:
@@ -20,6 +21,10 @@ class FilePath(Enum):
         module_path = os.path.abspath(__file__)
         project_dir = os.path.dirname(module_path)
         return os.path.join(project_dir, self.value)
+
+
+def is_moku_project_dir() -> bool:
+    return os.path.isfile(os.path.join(os.getcwd(), ".moku"))
 
 def write_error_msg(error_msg: str):
     click.secho(f"Error: {error_msg} :/", fg="red")
