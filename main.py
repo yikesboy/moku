@@ -1,7 +1,7 @@
 import click
-import time
 from init import init
 from build import build
+from serve import serve
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -31,24 +31,7 @@ def cli(ctx):
 
 cli.add_command(init)
 cli.add_command(build)
-
-@cli.command()
-@click.option("--port", default=8000, help="Port to serve the site")
-def serve(port):
-    """Start preview server"""
-    click.secho(f"Serving on http://localhost:{port}", fg="bright_blue")
-    pass
-
-"""@cli.command()
-def build():
-    click.secho("\nStarting build.\n", fg='bright_blue', bold=True)
-    total = 100
-    with click.progressbar(range(total), label=click.style('Building', fg='bright_blue', bold=True), fill_char='█', empty_char='-', width=50) as bar:
-        for _ in bar:
-            time.sleep(0.03)
-
-    click.secho("\nBuild Complete!", fg='bright_blue', bold=True)
-    pass"""
+cli.add_command(serve)
 
 @cli.command()
 def new_post():
