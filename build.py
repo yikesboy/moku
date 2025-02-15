@@ -17,6 +17,9 @@ def build():
         write_error_msg("not in a valid project directory")
 
 def build_output_from_user_project():
+    if os.path.exists(FilePath.OUTPUT_DIR.cwd_path):
+        shutil.rmtree(FilePath.OUTPUT_DIR.cwd_path)
+
     env = Environment(loader=FileSystemLoader(FilePath.TEMPLATE_DIR.project_path))
     posts: List[Post] = get_posts()
     pages: List[Page] = get_pages()
