@@ -3,8 +3,8 @@ import click
 from enum import Enum
 
 class FilePath(Enum):
-    CONFIG_FILE = "moku_config.json"
-    TEMPLATE_DIR = "templates"
+    CONFIG_FILE = "../moku_config.json"
+    TEMPLATE_DIR = "../templates"
     CONTENT_DIR = "content"
     POSTS_DIR = str(os.path.join(CONTENT_DIR, "posts"))
     OUTPUT_DIR = "output"

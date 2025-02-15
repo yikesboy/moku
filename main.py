@@ -1,7 +1,7 @@
 import click
-from init import init
-from build import build
-from serve import serve
+from commands.init import init
+from commands.build import build
+from commands.serve import serve
 
 @click.group(invoke_without_command=True)
 @click.pass_context

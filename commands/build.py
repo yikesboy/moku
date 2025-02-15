@@ -6,8 +6,8 @@ import shutil
 import markdown
 from typing import Optional, Tuple, Any, List
 from jinja2 import Environment, FileSystemLoader
-from models import Post, Page, TemplateType
-from util import FilePath, write_error_msg, write_warning_msg, is_moku_project_dir
+from utilities.models import Post, Page, TemplateType
+from utilities.util import FilePath, write_error_msg, write_warning_msg, is_moku_project_dir
 
 @click.command()
 def build():

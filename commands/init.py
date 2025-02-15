@@ -2,7 +2,7 @@ import click
 import os
 import json
 from typing import Dict, Optional
-from util import FilePath, write_error_msg, write_warning_msg
+from utilities.util import FilePath, write_error_msg, write_warning_msg
 
 
 @click.command()

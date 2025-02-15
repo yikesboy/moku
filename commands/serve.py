@@ -2,7 +2,7 @@ import os
 import click
 import webbrowser
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
-from util import FilePath, is_moku_project_dir, write_error_msg
+from utilities.util import FilePath, is_moku_project_dir, write_error_msg
 
 @click.command()
 @click.option("--port", default=8000, help="Port to serve the site")
