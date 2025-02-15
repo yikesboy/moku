@@ -1,13 +1,11 @@
 ---
 title: "Advanced Markdown Test"
-date: "2025-02-05"
+date: "2025-02-07"
 template: "post.html"
 ---
 
-# Advanced Markdown Features
-
 ## Text Formatting
-Here's *italic* and **bold** text. You can also do ***both*** or ~~strike through~~.
+Here's *italic* and **bold** text. You can also do ***both***.
 
 ## Links and References
 Here's a [link to nowhere](#) and one with a [title](# "hover me!").

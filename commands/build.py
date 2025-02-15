@@ -57,7 +57,7 @@ def build_post_pages(env: Environment, posts: List[Post]):
     post_template = env.get_template("post.html")
 
     for post in posts:
-        rendered_html = post_template.render(title=post.title, content=post.html_content)
+        rendered_html = post_template.render(title=post.title, content=post.html_content, date=post.date)
         output_dir = os.path.join(FilePath.OUTPUT_POSTS.cwd_path, post.slug)
         os.makedirs(output_dir)
 

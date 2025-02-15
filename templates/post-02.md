@@ -1,6 +1,6 @@
 ---
 title: "What Is Mokuhanga?"
-date: "2025-02-05"
+date: "2025-02-06"
 template: "post.html"
 ---
 

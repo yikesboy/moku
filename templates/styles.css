@@ -90,6 +90,33 @@ img {
   margin: 0 auto;
 }
 
+.navigation {
+  margin-top: 8px;
+  margin-bottom: 13px;
+}
+
+.navigation button {
+ background-color: #3484fd; 
+ color: #fbf7f5;
+ font-family: "Share Tech Mono", serif;
+ font-weight: 600;
+ font-style: normal;
+ padding: 3px 3px;
+ margin: 0px 2px;
+ cursor: pointer;
+ border-radius: 2px;
+ border: none;
+ outline: none;
+}
+
+.navigation button:hover {
+  background-color: #0165fc;
+}
+
+#id {
+  size: 0.5em;
+}
+
 @media (min-width: 1200px) {
   header, main, footer {
     max-width: 50%;
