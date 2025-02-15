@@ -41,7 +41,7 @@ def hello_world():
 | Cell 3   | Cell 4   |
 
 ## Images
-![Alt text goes here](#)
+![Alt text goes here](nib.svg)
 
 ## Horizontal Rule
 ---

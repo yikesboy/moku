@@ -7,7 +7,10 @@
       }
     },
     "static" : {
-      "files": ["styles.css"]
+      "files": ["styles.css"],
+      "assets": {
+        "files": ["nib.svg"]
+      }
     },
     "templates": {
       "files": ["index.html", "post.html", "page.html"]

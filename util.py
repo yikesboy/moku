@@ -10,6 +10,7 @@ class FilePath(Enum):
     OUTPUT_DIR = "output"
     OUTPUT_POSTS = str(os.path.join(OUTPUT_DIR, "posts"))
     STATIC_DIR = "static"
+    ASSETS_DIR = "static/assets"
 
     @property
     def cwd_path(self) -> str:

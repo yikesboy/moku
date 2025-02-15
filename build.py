@@ -1,5 +1,6 @@
 import click
 import os
+import re
 import yaml
 import shutil
 import markdown
@@ -26,6 +27,7 @@ def build_output_from_user_project():
     build_pages(env=env, pages=pages, posts=posts)
     build_post_pages(env=env, posts=posts)
     copy_styles()
+    copy_assets()
 
 def build_pages(env: Environment, pages: List[Page], posts: List[Post]):
     for page in pages:
@@ -127,6 +129,8 @@ def parse_markdown(path: str, file_name: str) -> Optional[Tuple[Any, str]]:
         write_warning_msg("metadata missing in {file_name}")
         return
 
+    md_content = re.sub(r'!\[(.*?)\]\((.*?)\)', normalize_image_path, md_content)
+
     html_content = markdown.markdown(
             md_content,
             extensions=[
@@ -148,3 +152,21 @@ def copy_styles():
         write_error_msg("styles.css not found in static directory")
     except Exception:
         write_error_msg("unknown while trying to copy styles.css ")
+
+def copy_assets():
+    source = os.path.join(FilePath.ASSETS_DIR.cwd_path)
+    destination = os.path.join(FilePath.OUTPUT_DIR.cwd_path, "assets")
+    
+    try: 
+        shutil.copytree(source, destination)
+    except FileNotFoundError:
+        write_warning_msg("assets directory missing")
+    except Exception as e:
+        write_error_msg(f"unknown while trying to copy assets {e}")
+
+def normalize_image_path(match):
+    alt_text = match.group(1)
+    filename = os.path.basename(match.group(2))
+    new_path = os.path.join(FilePath.OUTPUT_DIR.cwd_path, "assets", filename)
+
+    return f"![{alt_text}]({new_path})"

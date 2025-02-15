@@ -83,6 +83,13 @@ blockquote {
   border-color: #7fd0f5;
 }
 
+img {
+  max-height: 25vh;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 @media (min-width: 1200px) {
   header, main, footer {
     max-width: 50%;
