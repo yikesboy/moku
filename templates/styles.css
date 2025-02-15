@@ -76,6 +76,13 @@ hr {
   background-color: #3484fd;
 }
 
+blockquote {
+  border-left: 3px solid #666;
+  padding-left: 1em;
+  margin-left: 0;
+  border-color: #7fd0f5;
+}
+
 @media (min-width: 1200px) {
   header, main, footer {
     max-width: 50%;
