@@ -72,7 +72,7 @@ def get_posts() -> List[Post]:
     for filename in os.listdir(content_dir):
         if filename.endswith(".md"):
             slug = os.path.splitext(filename)[0]
-            result = parse_markdown(content_dir, filename)
+            result = parse_markdown(content_dir, filename, "post")
             if result:
                 metadata, html_content = result
                 post = Post(
@@ -96,7 +96,7 @@ def get_pages() -> List[Page]:
     for filename in os.listdir(content_dir):
         if filename.endswith(".md"):
             slug = os.path.splitext(filename)[0]
-            result = parse_markdown(content_dir, filename)
+            result = parse_markdown(content_dir, filename, "page")
             if result:
                 metadata, html_content = result
                 page = Page(
@@ -111,7 +111,7 @@ def get_pages() -> List[Page]:
                 continue
     return pages
 
-def parse_markdown(path: str, file_name: str) -> Optional[Tuple[Any, str]]:
+def parse_markdown(path: str, file_name: str, content_type: str ) -> Optional[Tuple[Any, str]]:
     full_path = os.path.join(path, file_name)
 
     try: 
@@ -132,7 +132,11 @@ def parse_markdown(path: str, file_name: str) -> Optional[Tuple[Any, str]]:
         write_warning_msg("metadata missing in {file_name}")
         return
 
-    md_content = re.sub(r'!\[(.*?)\]\((.*?)\)', normalize_image_path, md_content)
+    md_content = re.sub(
+            r'!\[(.*?)\]\((.*?)\)', 
+            lambda match: normalize_image_path(match, content_type), 
+            md_content
+            )
 
     html_content = markdown.markdown(
             md_content,
@@ -167,9 +171,13 @@ def copy_assets():
     except Exception as e:
         write_error_msg(f"unknown while trying to copy assets {e}")
 
-def normalize_image_path(match):
+def normalize_image_path(match, content_type: str):
     alt_text = match.group(1)
     filename = os.path.basename(match.group(2))
-    new_path = os.path.join(FilePath.OUTPUT_DIR.cwd_path, "assets", filename)
+
+    if content_type == "post":
+        new_path = os.path.join("./../../assets", filename)
+    else:
+        new_path = os.path.join("assets", filename)
 
     return f"![{alt_text}]({new_path})"
